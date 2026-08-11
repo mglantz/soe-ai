@@ -1,0 +1,23 @@
+---
+- name: Ensure baseline troubleshooting packages are installed
+  ansible.builtin.package:
+    name: "{{ soe_troubleshooting_packages }}"
+    state: present
+  tags: [troubleshooting_tools]
+
+- name: List user-installed packages for manual review against the baseline
+  ansible.builtin.command: dnf history userinstalled
+  register: soe_troubleshooting_userinstalled
+  changed_when: false
+  failed_when: false
+  check_mode: false
+  tags: [troubleshooting_tools]
+
+- name: Report user-installed packages
+  ansible.builtin.debug:
+    msg: >-
+      Packages installed outside this playbook (review for anything
+      unexpected; this role never removes packages automatically):
+      {{ soe_troubleshooting_userinstalled.stdout_lines }}
+  when: soe_troubleshooting_userinstalled.rc == 0
+  tags: [troubleshooting_tools]
