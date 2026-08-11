@@ -1,9 +1,9 @@
 ---
 - name: Assert host is RHEL-family
   ansible.builtin.assert:
-    that: ansible_os_family == "RedHat"
+    that: ansible_facts['os_family'] == "RedHat"
     fail_msg: >-
-      timesync targets RHEL-family systems; detected {{ ansible_os_family }}.
+      timesync targets RHEL-family systems; detected {{ ansible_facts['os_family'] }}.
       Adjust soe_timesync_package/conf_path for this distro before relying
       on this role.
   tags: [timesync]
