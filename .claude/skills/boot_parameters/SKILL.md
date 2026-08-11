@@ -18,8 +18,12 @@ Encoded in `ansible/roles/boot_parameters/defaults/main.yml`:
 - Forbidden unless explicitly approved: `mitigations=off`, `nopti`,
   `nospectre_v2`, `init=/bin/bash`.
 
-The role reads `GRUB_CMDLINE_LINUX` from `/etc/default/grub` and asserts
-required params are present / forbidden params are absent.
+The role reads the **running kernel's** actual parameters from
+`/proc/cmdline` (not `GRUB_CMDLINE_LINUX` in `/etc/default/grub`) and
+asserts required params are present / forbidden params are absent. This
+catches real drift that a pending-but-unapplied `GRUB_CMDLINE_LINUX` edit
+would hide — e.g. someone edited the file but hasn't run `grub2-mkconfig`
+and rebooted yet, so the live kernel is still out of compliance.
 
 ## What to do
 
