@@ -17,7 +17,12 @@ relying on this): `sos`, `tcpdump`, `strace`, `lsof`, `bind-utils`,
 
 ## What to do
 
-**Audit**: `ansible-playbook ansible/site.yml --tags troubleshooting_tools --check --diff`
+**Audit**: `ansible-playbook ansible/site.yml --tags troubleshooting_tools --check --diff`.
+The role gathers package facts and reports an explicit
+`Missing baseline troubleshooting packages: ...` (or `All baseline
+troubleshooting packages are present: ...`) message before the install
+task's own `--diff` output, so compliance status is visible even without
+reading the diff.
 
 **Remediate**: same command without `--check`, after explicit user
 approval — this only *installs* missing baseline packages, it never
