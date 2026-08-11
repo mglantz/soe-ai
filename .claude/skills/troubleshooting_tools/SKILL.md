@@ -41,7 +41,6 @@ in the body — then stop for human review. See `docs/ARCHITECTURE.md`'s
 
 - This is a one-directional check: packages **missing** from the baseline
   are installed. Packages **outside** the baseline (installed ad hoc, e.g.
-  `wireshark`) are listed via `dnf history userinstalled` for the user to
-  review, but this role never runs `dnf remove` on them — removing a
+  `wireshark`) are not reported or touched by this role — removing a
   package a human installed for a reason is a judgment call, not something
   to automate.
