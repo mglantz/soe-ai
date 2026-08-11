@@ -1,7 +1,7 @@
 ---
 soe_boot_grub_default: /etc/default/grub
 soe_boot_required_params:
-  - audit=1
+  - crashkernel
 soe_boot_forbidden_params:
   - mitigations=off
   - nopti

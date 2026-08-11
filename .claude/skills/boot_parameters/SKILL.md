@@ -13,8 +13,8 @@ the shared conventions. **This role is audit-only by design** — see
 
 Encoded in `ansible/roles/boot_parameters/defaults/main.yml`:
 
-- Required on the kernel cmdline: `audit=1` (feeds auditd from early boot;
-  pairs with `audit_setup`).
+- Required on the kernel cmdline: `crashkernel` (reserves memory for kdump
+  so a kernel crash produces a vmcore for post-mortem analysis).
 - Forbidden unless explicitly approved: `mitigations=off`, `nopti`,
   `nospectre_v2`, `init=/bin/bash`.
 
