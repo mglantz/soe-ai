@@ -12,7 +12,7 @@ the shared conventions.
 
 Encoded in `ansible/roles/system_locale/defaults/main.yml`:
 
-- Target locale (`soe_locale_lang`, default `en_US.UTF-8`) is installed
+- Target locale (`soe_locale_lang`, default `C.UTF-8`) is installed
   (checked against `localectl list-locales`) before anything tries to set
   it — setting `LANG` to an uninstalled locale causes
   `perl: warning: Setting locale failed`-style errors system-wide.
@@ -44,3 +44,9 @@ body — then stop for human review. See `docs/ARCHITECTURE.md`'s
   `dnf reinstall glibc-langpack-<lang>` (or `dnf install`) — this role
   asserts the gap but doesn't install language packs itself, since the
   right package name varies by locale.
+- `C.UTF-8` is the default baseline rather than a language-specific locale
+  like `en_US.UTF-8`: it's provided by glibc itself (no `glibc-langpack-*`
+  install required) and gives UTF-8 encoding without asserting an English
+  (or any other) language preference, so it's still available on minimal
+  installs and doesn't need a per-fleet/per-locale override just to pass
+  the "is it installed" check.
