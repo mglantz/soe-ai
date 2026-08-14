@@ -1,4 +1,9 @@
 ---
+# /etc/login.defs is only read by useradd at account-creation time, so this
+# only sets the aging policy new accounts are created with — it does not
+# retroactively change PASS_MAX_DAYS/PASS_MIN_DAYS/PASS_WARN_AGE for
+# existing accounts (those live in /etc/shadow per-user and need `chage`,
+# which is a per-account judgment call this role doesn't make).
 - name: Enforce password aging defaults in /etc/login.defs
   ansible.builtin.lineinfile:
     path: /etc/login.defs
