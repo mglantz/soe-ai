@@ -41,6 +41,13 @@ body — then stop for human review. See `docs/ARCHITECTURE.md`'s
 
 ## Notes — things this role deliberately does NOT auto-fix
 
+- **Password aging (`PASS_MAX_DAYS`/`PASS_MIN_DAYS`/`PASS_WARN_AGE`)** is
+  enforced via `/etc/login.defs`, which `useradd` only reads at
+  account-creation time — this baseline applies to *newly created* accounts
+  going forward, not retroactively to existing ones. Existing accounts'
+  aging lives in `/etc/shadow` per-user and needs `chage`, which (like
+  locking an account) is a per-account judgment call this role doesn't
+  make automatically.
 - **Empty-password accounts** and **duplicate UIDs** are reported via
   `assert` (task fails, `fail_msg` lists the accounts/UIDs) but never
   auto-locked or auto-renumbered — locking (`usermod -L`) or fixing a UID
