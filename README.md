@@ -1,4 +1,4 @@
-# soe-ai
+# MOVED TO https://github.com/redhat-cop/rhel-soe-ai
 
 Experimentation with building a Linux Standard Operating Environment (SOE)
 out of specialized AI agents, defined as Claude Code skills. Each skill owns
